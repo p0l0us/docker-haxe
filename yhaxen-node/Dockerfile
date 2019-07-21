@@ -7,7 +7,7 @@ MAINTAINER polehla@gmail.com
 
 ENV YHAXEN_VERSION 0.0.50
 	
-RUN apt-get update && apk upgrade && \
+RUN apt-get update && apt-get upgrade && \
 	haxelib install yhaxen $YHAXEN_VERSION
 
 RUN apt-get install bash git openssh -y --no-install-recommends && \
