@@ -1,4 +1,4 @@
-FROM p0l0us/haxe:3.4-node-carbon-alpine
+FROM p0l0us/haxe:3.4-node-carbon-jessie
 
 MAINTAINER polehla@gmail.com
 
@@ -7,10 +7,10 @@ MAINTAINER polehla@gmail.com
 
 ENV YHAXEN_VERSION 0.0.50
 	
-RUN apk update && apk upgrade && \
+RUN apt-get update && apk upgrade && \
 	haxelib install yhaxen $YHAXEN_VERSION
 
-RUN apk add --no-cache bash git openssh && \
+RUN apt-get install bash git openssh -y --no-install-recommends && \
     mkdir ~/.ssh/ && \
     echo -e "Host * \
     \n   StrictHostKeyChecking no \
