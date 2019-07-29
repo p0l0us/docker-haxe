@@ -1,8 +1,12 @@
+# p0l0us/haxe:3.4-node-carbon-jessie
+#
+# COPIED FROM  https://github.com/HaxeFoundation/docker-library-haxe/blob/d94c754a343676aede20497b5d28e8264e446ca6/3.4/jessie/Dockerfile
+
 FROM node:carbon-jessie
 
 MAINTAINER polehla@gmail.com
 
-# COPIED FROM  https://github.com/HaxeFoundation/docker-library-haxe/blob/d94c754a343676aede20497b5d28e8264e446ca6/3.4/jessie/Dockerfile
+
 
 # ensure local haxe is preferred over distribution haxe
 ENV PATH /usr/local/bin:$PATH
