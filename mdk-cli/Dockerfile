@@ -1,4 +1,4 @@
-# p0l0us/haxe:3.4-mdk-cli-yhaxen-0.0.50-ant-openjdk-12-node-carbon-alpine
+# p0l0us/haxe:3.4-mdk-cli-yhaxen-0.0.50-ant-1.9.9-openjdk-12-node-carbon-alpine
 #
 # Project specific image adding required tools (some are private).
 #
@@ -16,7 +16,7 @@
 # Due mount.cifs command, docker container requires following arguments:
 # `--cap-add SYS_ADMIN --cap-add DAC_READ_SEARCH`
 
-FROM p0l0us/haxe:3.4-yhaxen-0.0.50-ant-openjdk-12-node-carbon-alpine
+FROM p0l0us/haxe:3.4-yhaxen-0.0.50-ant-1.9.9-openjdk-12-node-carbon-alpine
 MAINTAINER polehla@gmail.com
 
 # Container requires following environment vairables:

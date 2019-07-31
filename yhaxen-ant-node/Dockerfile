@@ -1,4 +1,4 @@
-# p0l0us/haxe:3.4-yhaxen-0.0.50-ant-openjdk-12-node-carbon-alpine
+# p0l0us/haxe:3.4-yhaxen-0.0.50-ant-1.9.9-openjdk-12-node-carbon-alpine
 #
 # Yhaxen added to Ant + OpenJDK + Haxe + NodeJS docker image.
 #  
@@ -18,7 +18,7 @@
 #
 # -w0 argument doesn't exists within alpine base64 encoder. Use Ubuntu or Debian linux to encode.
 
-FROM p0l0us/haxe:3.4-ant-openjdk-12-node-carbon-alpine
+FROM p0l0us/haxe:3.4-ant-1.9.9-openjdk-12-node-carbon-alpine
 MAINTAINER polehla@gmail.com
 
 ENV YHAXEN_VERSION 0.0.50
