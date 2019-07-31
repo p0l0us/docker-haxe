@@ -1,78 +1,70 @@
-# p0l0us/haxe:3.4-node-carbon-jessie
+# p0l0us/haxe:3.4-node-carbon-alpine
+# 
+# Haxe + NodeJS docker image.
 #
-# COPIED FROM  https://github.com/HaxeFoundation/docker-library-haxe/blob/d94c754a343676aede20497b5d28e8264e446ca6/3.4/jessie/Dockerfile
+# Based on original node image:
+# https://hub.docker.com/_/node
+# https://github.com/nodejs/docker-node/blob/7e47b378c42b03ae6afae704c5bf5b724aae2b92/8/alpine/Dockerfile
+#
+# Haxe instalation copied from:
+# https://github.com/HaxeFoundation/docker-library-haxe/blob/d94c754a343676aede20497b5d28e8264e446ca6/3.4/alpine3.9/Dockerfile
 
-FROM node:carbon-jessie
-
+FROM node:carbon-alpine
 MAINTAINER polehla@gmail.com
-
-
 
 # ensure local haxe is preferred over distribution haxe
 ENV PATH /usr/local/bin:$PATH
 
-# runtime dependencies
-RUN apt-get update && apt-get install -y --no-install-recommends \
-		libgc1c2 \
-		zlib1g \
-		libpcre3 \
-		libmariadb2 \
-		libsqlite3-0 \
-	&& rm -rf /var/lib/apt/lists/*
+# install ca-certificates so that HTTPS works consistently
+# the other runtime dependencies are installed later
+RUN apk add --no-cache ca-certificates
 
-# install neko, which is a dependency of haxelib
 ENV NEKO_VERSION 2.2.0
+ENV HAXE_VERSION 3.4.7
+ENV HAXE_STD_PATH /usr/local/share/haxe/std
+
 RUN set -ex \
-	&& buildDeps=' \
-		gcc \
-		make \
-		cmake \
-		libgc-dev \
-		libssl-dev \
-		libpcre3-dev \
-		zlib1g-dev \
-		apache2-dev \
-		libmariadb-client-lgpl-dev-compat \
-		libsqlite3-dev \
-		libgtk2.0-dev \
-	' \
-	&& apt-get update && apt-get install -y $buildDeps --no-install-recommends && rm -rf /var/lib/apt/lists/* \
+	&& apk add --no-cache --virtual .fetch-deps \
+		libressl \
+		tar \
+		git \
 	\
 	&& wget -O neko.tar.gz "https://github.com/HaxeFoundation/neko/archive/v2-2-0/neko-2.2.0.tar.gz" \
 	&& echo "cf101ca05db6cb673504efe217d8ed7ab5638f30e12c5e3095f06fa0d43f64e3 *neko.tar.gz" | sha256sum -c - \
 	&& mkdir -p /usr/src/neko \
 	&& tar -xC /usr/src/neko --strip-components=1 -f neko.tar.gz \
 	&& rm neko.tar.gz \
+	&& apk add --no-cache --virtual .neko-build-deps \
+		apache2-dev \
+		cmake \
+		gc-dev \
+		gcc \
+		gtk+2.0-dev \
+		libc-dev \
+		linux-headers \
+		mariadb-dev \
+		mbedtls-dev \
+		ninja \
+		sqlite-dev \
 	&& cd /usr/src/neko \
-	&& cmake -DRELOCATABLE=OFF -DSTATIC_DEPS=MbedTLS . \
-	&& make \
-	&& make install \
+	&& cmake -GNinja -DNEKO_JIT_DISABLE=ON -DRELOCATABLE=OFF -DRUN_LDCONFIG=OFF . \
+	&& ninja \
+	&& ninja install \
 	\
-	&& apt-get purge -y --auto-remove $buildDeps \
-	&& rm -rf /usr/src/neko ~/.cache
-
-# install haxe
-ENV HAXE_VERSION 3.4.7
-ENV HAXE_STD_PATH /usr/local/share/haxe/std
-RUN set -ex \
-	&& buildDeps=' \
-		make \
-		zlib1g-dev \
-		libpcre3-dev \
-		\
-		ocaml-nox \
-		ocaml-native-compilers \
-		camlp4 \
-		ocaml-findlib \
-		libxml-light-ocaml-dev \
-		\
-	' \
 	&& git clone --recursive --depth 1 --branch 3.4.7 "https://github.com/HaxeFoundation/haxe.git" /usr/src/haxe \
 	&& cd /usr/src/haxe \
-	&& apt-get update && apt-get install -y $buildDeps --no-install-recommends && rm -rf /var/lib/apt/lists/* \
+	&& apk add --no-cache --virtual .haxe-build-deps \
+		pcre-dev \
+		zlib-dev \
+		make \
+		\
+		ocaml \
+		camlp4 \
+		ocaml-camlp4-dev \
+		\
 	\
+	&& OCAMLPARAM=safe-string=0,_ make all tools \
 	\
-	&& make all tools \
 	&& mkdir -p /usr/local/bin \
 	&& cp haxe haxelib /usr/local/bin \
 	&& mkdir -p $HAXE_STD_PATH \
@@ -80,8 +72,16 @@ RUN set -ex \
 	&& mkdir -p /haxelib \
 	&& cd / && haxelib setup /haxelib \
 	\
+	&& runDeps="$( \
+		scanelf --needed --nobanner --recursive /usr/local \
+			| awk '{ gsub(/,/, "\nso:", $2); print "so:" $2 }' \
+			| sort -u \
+			| xargs -r apk info --installed \
+			| sort -u \
+	)" \
+	&& apk add --virtual .haxe-rundeps $runDeps \
+	&& apk del .fetch-deps .neko-build-deps .haxe-build-deps \
 	\
-	&& apt-get purge -y --auto-remove $buildDeps \
-	&& rm -rf /usr/src/haxe ~/.cache
+	&& rm -rf /usr/src/neko /usr/src/haxe
 
 CMD ["haxe"]
