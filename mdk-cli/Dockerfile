@@ -23,17 +23,27 @@ MAINTAINER polehla@gmail.com
 #     SSH_KNOWN_HOSTS_GZIP_BASE64
 #     SSH_PRIVATE_KEY_GZIP_BASE64
 
-RUN npm install -g --unsafe-perm google-closure-compiler
-
-RUN npm install -g --unsafe-perm node-sass@4.5.3 &&\
-	npm install -g --unsafe-perm sass-lint@1.12.1
+RUN npm config set unsafe-perm true &&\
+	npm install -g node-sass@4.5.3
+#	npm install -g sass-lint@1.12.1
 	
 RUN mkdir /mnt/aws-iis && \
     apk update && \
     apk add cifs-utils
 	
-COPY aws-ant-tasks-0.5-SNAPSHOT.jar /usr/local/bin/
+RUN mkdir -p /usr/local/share/ant
+
+COPY aws-ant-tasks-0.5-SNAPSHOT.jar /opt/ant-1.9.9/lib/aws-ant-task-0.5-SNAPSHOT.jar
+COPY closure-compiler-v20190709.jar /opt/ant-1.9.9/lib/closure-compiler.jar
+	
+ENV CLASSPATH /usr/local/share/ant/
+
 COPY docker-entrypoint.sh /usr/local/bin/
+
+RUN echo ''>/usr/bin/set-haxe &&\
+	chmod +x /usr/bin/set-haxe &&\
+	echo ''>/usr/bin/set-nodejs &&\
+	chmod +x /usr/bin/set-nodejs
 
 RUN chmod +rx /usr/local/bin/docker-entrypoint.sh
 

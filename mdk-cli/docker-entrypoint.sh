@@ -21,5 +21,6 @@ npm install -g git+ssh://git@stash.massiveinteractive.com:7999/mdk/mdk-cli-node
 # ${AWS_MOUNT_PASSWORD} - samba share password
 
 bash -c "mount -t cifs '${AWS_MOUNT_PATH}' /mnt/aws-iis -o username=${AWS_MOUNT_USERNAME},password=${AWS_MOUNT_PASSWORD},sec=ntlm"
+#export CLASSPATH=$CLASSPATH:/usr/local/share/ant/
 
 exec "$@"

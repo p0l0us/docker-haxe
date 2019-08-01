@@ -31,7 +31,7 @@ Ant installation taken from:
 
 
 ## p0l0us/haxe:3.4-yhaxen-0.0.50-ant-1.9.9-openjdk-12-node-carbon-alpine
-    https://github.com/p0l0us/docker-haxe/tree/3.4-yhaxen-0.0.50-ant-1.9.9-openjdk-12-node-carbon-alpine
+https://github.com/p0l0us/docker-haxe/tree/3.4-yhaxen-0.0.50-ant-1.9.9-openjdk-12-node-carbon-alpine
 
 Yhaxen added to Ant + OpenJDK + Haxe + NodeJS docker image.
  
