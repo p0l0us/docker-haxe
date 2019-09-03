@@ -10,18 +10,6 @@ MAINTAINER polehla@gmail.com
 
 USER root
 
-ENV ANT_VERSION 1.9.9
-ENV ANT_HOME /opt/ant-${ANT_VERSION}
-
-RUN cd /tmp \
-    && wget http://archive.apache.org/dist/ant/binaries/apache-ant-${ANT_VERSION}-bin.tar.gz \
-    && mkdir -p ant-${ANT_VERSION} \
-    && tar -zxvf apache-ant-${ANT_VERSION}-bin.tar.gz \
-    && mv apache-ant-${ANT_VERSION} ${ANT_HOME} \
-    && rm apache-ant-${ANT_VERSION}-bin.tar.gz \
-    && rm -rf ant-${ANT_VERSION} \
-    && rm -rf ${ANT_HOME}/manual \
-    && unset ANT_VERSION
-ENV PATH ${PATH}:${ANT_HOME}/bin
+RUN apk update && apk add apache-ant
 	
 CMD ["ant"]
