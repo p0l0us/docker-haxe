@@ -4,8 +4,7 @@
 #  
 # See Yhaxen here: 
 #      https://github.com/jozefchutka/YHaxen/tree/master/src/main/haxe/yhaxen
-
-
+#
 # Following optional environment vairables are accepted by the image entrypoint script:
 #
 # SSH setup:

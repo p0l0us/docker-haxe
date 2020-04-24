@@ -13,8 +13,8 @@ RUN apk --no-cache update &&\
 	apk --no-cache add ${JAVA_PKG}  &&\
 	rm -rf /tmp/*
 	
-ENV JAVA_HOME=/usr/lib/jvm/java-1.8-openjdk
-ENV PATH="$JAVA_HOME/bin:${PATH}"
+ENV JAVA_HOME /usr/lib/jvm/java-1.8-openjdk
+ENV PATH "$JAVA_HOME/bin:${PATH}"
 
 RUN java -version
 RUN javac -version
