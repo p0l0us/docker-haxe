@@ -12,7 +12,9 @@ RUN apk --no-cache update &&\
 	apk --no-cache upgrade &&\
 	apk --no-cache add ${JAVA_PKG}  &&\
 	rm -rf /tmp/*
-	
+
+COPY java-env.sh /etc/profile.d/java-env.sh
+
 ENV JAVA_HOME /usr/lib/jvm/java-1.8-openjdk
 ENV PATH "$JAVA_HOME/bin:${PATH}"
 
