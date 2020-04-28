@@ -1,5 +1,8 @@
 #/bin/bash
 
+docker build webos -t p0l0us/haxe:webos-cli-buster-slim
+docker push p0l0us/haxe:webos-cli-buster-slim
+
 docker build node -t p0l0us/haxe:3.4-node-carbon-alpine
 docker push p0l0us/haxe:3.4-node-carbon-alpine
 
