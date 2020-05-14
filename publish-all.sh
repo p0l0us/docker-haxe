@@ -1,7 +1,7 @@
 #/bin/bash
 
 docker build tizen -t p0l0us/haxe:tizen-cli-stretch
-docker push p0l0us/haxe:tizen-cli-buster
+docker push p0l0us/haxe:tizen-cli-stretch
 
 docker build webos -t p0l0us/haxe:webos-cli-buster-slim
 docker push p0l0us/haxe:webos-cli-buster-slim
