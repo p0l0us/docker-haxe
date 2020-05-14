@@ -29,8 +29,8 @@ fi
 
 if [ -n "${AWS_MOUNT_PATH}" ] && [ -n "${AWS_MOUNT_USERNAME}" ] && [ -n "${AWS_MOUNT_PASSWORD}" ]
 then
-	echo "mount -t cifs '${AWS_MOUNT_PATH}' /mnt/aws-iis -o username=${AWS_MOUNT_USERNAME},password=${AWS_MOUNT_PASSWORD},sec=ntlm,rw,uid=1,gid=0,noperm"
-	bash -c "mount -t cifs '${AWS_MOUNT_PATH}' /mnt/aws-iis -o  username=${AWS_MOUNT_USERNAME},password=${AWS_MOUNT_PASSWORD},sec=ntlm,rw,uid=1,gid=0,noperm"
+	echo "mount -t cifs '${AWS_MOUNT_PATH}' /mnt/aws-iis -o username=${AWS_MOUNT_USERNAME},password=${AWS_MOUNT_PASSWORD},sec=ntlm,rw,uid=0,gid=0,noperm"
+	bash -c "mount -t cifs '${AWS_MOUNT_PATH}' /mnt/aws-iis -o  username=${AWS_MOUNT_USERNAME},password=${AWS_MOUNT_PASSWORD},sec=ntlm,rw,uid=0,gid=0,noperm"
 	ls /mnt/aws-iis
 fi
 
