@@ -1,4 +1,4 @@
-FROM debian:stretch
+FROM debian:buster
 
 # upgrade and install packages
 RUN apt-get update -y && \
@@ -9,9 +9,7 @@ RUN apt-get update -y && \
         pciutils \
         zip \
         unzip \
-		ant \
-        openjdk-8-jdk
-
+		ant
 # setup path	
 ENV PATH="/usr/sbin:/usr/bin:/sbin:/bin:/usr/local/bin:/home/massive/tizen-studio/tools/ide/bin:/home/massive/tizen-studio/tools"
 
