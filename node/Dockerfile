@@ -30,7 +30,7 @@ RUN set -ex \
 		git \
 	\
 	&& wget -O neko.tar.gz "https://github.com/HaxeFoundation/neko/archive/v2-3-0/neko-2.3.0.tar.gz" \
-	&& echo "850E7E317BDAF24ED652EFEFF89C1CB21380CA19F20E68A296C84F6BAD4EE995 *neko.tar.gz" | sha256sum -c - \
+	&& echo "850e7e317bdaf24ed652efeff89c1cb21380ca19f20e68a296c84f6bad4ee995 *neko.tar.gz" | sha256sum -c - \
 	&& mkdir -p /usr/src/neko \
 	&& tar -xC /usr/src/neko --strip-components=1 -f neko.tar.gz \
 	&& rm neko.tar.gz \
