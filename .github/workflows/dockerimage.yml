@@ -16,7 +16,48 @@ jobs:
     - uses: actions/checkout@v2
     - name: Docker login
       run: echo '${{ secrets.DOCKERHUB_PASS }}' | docker login --username ${{ secrets.DOCKERHUB_USER }} --password-stdin
-    - name: Build mdk-cli Docker image
+      
+    - name: Build tizen-cli-stretch docker image
+      run: docker build tizen -t p0l0us/haxe:tizen-cli-stretch
+    - name: Publish tizen-cli-stretch docker image
+      run: docker push p0l0us/haxe:tizen-cli-stretch
+      
+    - name: Build tizen-cli-stretch docker image
+      run: docker build tizen -t p0l0us/haxe:tizen-cli-stretch
+    - name: Publish tizen-cli-stretch docker image
+      run: docker push p0l0us/haxe:tizen-cli-stretch
+      
+    - name: Build webos-cli-buster-slim docker image
+      run: docker build webos -t p0l0us/haxe:webos-cli-buster-slim
+    - name: Publish webos-cli-buster-slim docker image
+      run: docker push p0l0us/haxe:webos-cli-buster-slim
+
+    - name: Build node docker image
+      run: docker build node -t p0l0us/haxe:3.4-node-carbon-alpine
+    - name: Publish node docker image
+      run: docker push p0l0us/haxe:3.4-node-carbon-alpine
+
+    - name: Build java-node docker image
+      run: docker build java-node -t p0l0us/haxe:3.4-openjdk-12-node-carbon-alpine
+    - name: Publish java-node docker image
+      run: docker push p0l0us/haxe:3.4-openjdk-12-node-carbon-alpine
+
+    - name: Build ant-java-node docker image
+      run: docker build ant-java-node -t p0l0us/haxe:3.4-ant-1.9.9-openjdk-12-node-carbon-alpine
+    - name: Publish ant-java-node docker image
+      run: docker push p0l0us/haxe:3.4-ant-1.9.9-openjdk-12-node-carbon-alpine
+
+    - name: Build ant-java-node docker image
+      run: docker build yhaxen-ant-java-node -t p0l0us/haxe:3.4-yhaxen-0.0.50-ant-1.9.9-openjdk-12-node-carbon-alpine
+    - name: Publish ant-java-node docker image
+      run: docker push p0l0us/haxe:3.4-yhaxen-0.0.50-ant-1.9.9-openjdk-12-node-carbon-alpine
+
+    - name: Build mdk-cli image
       run: docker build mdk-cli -t p0l0us/haxe:3.4-mdk-cli-yhaxen-0.0.50-ant-1.9.9-openjdk-12-node-carbon-alpine
-    - name: Publish mdk-cli Docker image
+    - name: Publish mdk-cli docker image
       run: docker push p0l0us/haxe:3.4-mdk-cli-yhaxen-0.0.50-ant-1.9.9-openjdk-12-node-carbon-alpine
+
+    - name: Build cordova docker image
+      run: docker build cordova -t p0l0us/haxe:3.4-cordova-mdk-cli-yhaxen-0.0.50-ant-1.9.9-openjdk-12-node-carbon-alpine
+    - name: Publish cordova docker image
+      run: docker push p0l0us/haxe:3.4-cordova-mdk-cli-yhaxen-0.0.50-ant-1.9.9-openjdk-12-node-carbon-alpine
