@@ -1,10 +1,16 @@
-name: Docker Image Webos
+name: Docker Image webos
 
 on:
   push:
-    branches: [ master ]
+    branches:
+    - master
+    paths:
+    - 'webos/**'
   pull_request:
-    branches: [ master ]
+    branches:
+    - master
+    paths:
+    - 'webos/**'
 
 jobs:
   build:

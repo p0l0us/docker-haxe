@@ -1,0 +1,29 @@
+name: Docker Image yhaxen-ant-java-node
+
+on:
+  push:
+    branches:
+    - master
+    paths:
+    - 'yhaxen-ant-java-node/**'
+  pull_request:
+    branches:
+    - master
+    paths:
+    - 'yhaxen-ant-java-node/**'
+
+jobs:
+
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Docker login
+      run: echo '${{ secrets.DOCKERHUB_PASS }}' | docker login --username ${{ secrets.DOCKERHUB_USER }} --password-stdin
+
+    - name: Build yhaxen-ant-java-node docker image
+      run: docker build yhaxen-ant-java-node -t p0l0us/haxe:3.4-yhaxen-0.0.50-ant-1.9.9-openjdk-12-node-carbon-alpine
+    - name: Publish yhaxen-ant-java-node docker image
+      run: docker push p0l0us/haxe:3.4-yhaxen-0.0.50-ant-1.9.9-openjdk-12-node-carbon-alpine
