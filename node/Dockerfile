@@ -85,4 +85,3 @@ RUN set -ex \
 	&& rm -rf /usr/src/neko /usr/src/haxe
 
 CMD ["haxe"]
-
