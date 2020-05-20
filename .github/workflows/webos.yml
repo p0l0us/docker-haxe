@@ -1,0 +1,27 @@
+name: Docker Image CI
+
+on:
+  push:
+    branches: [ master ]
+    paths:
+    - 'webos/**'
+  pull_request:
+    branches: [ master ]
+    paths:
+    - 'webos/**'
+
+jobs:
+
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Docker login
+      run: echo '${{ secrets.DOCKERHUB_PASS }}' | docker login --username ${{ secrets.DOCKERHUB_USER }} --password-stdin
+      
+    - name: Build webos docker image
+      run: docker build webos -t p0l0us/haxe:webos-cli-buster-slim
+    - name: Publish webos docker image
+      run: docker push p0l0us/haxe:webos-cli-buster-slim
