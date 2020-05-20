@@ -30,4 +30,3 @@ RUN wget -O /home/massive/tizen-cli.bin http://download.tizen.org/sdk/Installer/
 	(while [ 1 ]; do sleep 5; echo y; done) | /home/massive/tizen-studio/package-manager/package-manager-cli.bin install NativeCLI WebCLI
 
 USER root
-
