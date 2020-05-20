@@ -2,9 +2,9 @@ name: Docker Image all
 
 on:
   push:
-    branches: [ master-disabled ]
+    branches: [ master ]
   pull_request:
-    branches: [ master-disabled ]
+    branches: [ master ]
 
 jobs:
 
