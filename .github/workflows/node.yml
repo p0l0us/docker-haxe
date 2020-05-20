@@ -1,12 +1,14 @@
-name: Docker Image nodes
+name: Docker Image node
 
 on:
   push:
-    branches: [ master ]
+    branches:
+    - master
     paths:
     - 'node/**'
   pull_request:
-    branches: [ master ]
+    branches:
+    - master
     paths:
     - 'node/**'
 
