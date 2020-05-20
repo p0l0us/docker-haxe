@@ -12,7 +12,6 @@
 FROM node:carbon-alpine
 MAINTAINER polehla@gmail.com
 
-
 # ensure local haxe is preferred over distribution haxe
 ENV PATH /usr/local/bin:$PATH
 
