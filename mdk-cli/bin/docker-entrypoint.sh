@@ -27,6 +27,8 @@ fi
 # ${AWS_MOUNT_USERNAME} - samba share username
 # ${AWS_MOUNT_PASSWORD} - samba share password
 
+# required by D3 deployemnt.
+
 if [ -n "${AWS_MOUNT_PATH}" ] && [ -n "${AWS_MOUNT_USERNAME}" ] && [ -n "${AWS_MOUNT_PASSWORD}" ]
 then
 	echo "mount -t cifs '${AWS_MOUNT_PATH}' /mnt/aws-iis -o username=${AWS_MOUNT_USERNAME},password=${AWS_MOUNT_PASSWORD},sec=ntlmssp,rw,uid=0,gid=0,noperm"
