@@ -65,6 +65,8 @@ RUN chmod +rx /usr/local/bin/docker-entrypoint.sh &&\
 	chmod +rx /usr/local/bin/set-haxe &&\
 	chmod +rx /usr/local/bin/set-nodejs &&\
 	chmod +rx /usr/local/bin/set-webos
+	
+RUN haxelib install dox
 
 ENTRYPOINT ["docker-entrypoint.sh"]
 
