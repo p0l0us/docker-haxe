@@ -2,11 +2,11 @@ name: Docker Image Tizen
 
 on:
   push:
-    branches:
-    - master
+    branches: [ master ]
+    paths: [ 'tizen/**' ]
   pull_request:
-    branches:
-    - master
+    branches: [ master ]
+    paths: [ 'tizen/**' ]
 
 jobs:
   build:
