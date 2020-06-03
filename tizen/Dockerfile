@@ -1,15 +1,18 @@
 FROM debian:buster
 
 # upgrade and install packages
-RUN apt-get update -y && \
+RUN apt-get update && \
 	apt-get upgrade -y && \
 	apt-get install --no-install-recommends -y \
+		awscli \
+		groff \
 		sudo \
 		wget \
         pciutils \
         zip \
         unzip \
 		ant
+		
 # setup path	
 ENV PATH="/usr/sbin:/usr/bin:/sbin:/bin:/usr/local/bin:/home/massive/tizen-studio/tools/ide/bin:/home/massive/tizen-studio/tools"
 
@@ -30,3 +33,5 @@ RUN wget -O /home/massive/tizen-cli.bin http://download.tizen.org/sdk/Installer/
 	(while [ 1 ]; do sleep 5; echo y; done) | /home/massive/tizen-studio/package-manager/package-manager-cli.bin install NativeCLI WebCLI
 
 USER root
+
+ENTRYPOINT ["entrypoint.sh"]
