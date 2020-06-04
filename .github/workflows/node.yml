@@ -6,11 +6,6 @@ on:
     - master 
     paths:
     - node/**
-  pull_request:
-    branches: 
-    - master 
-    paths:
-    - node/**
 
 jobs:
 
