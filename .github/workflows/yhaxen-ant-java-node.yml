@@ -6,11 +6,6 @@ on:
     - master
     paths:
     - 'yhaxen-ant-java-node/**'
-  pull_request:
-    branches:
-    - master
-    paths:
-    - 'yhaxen-ant-java-node/**'
 
 jobs:
 

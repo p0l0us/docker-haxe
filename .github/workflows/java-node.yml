@@ -6,11 +6,6 @@ on:
     - master   
     paths:
     - java-node/**
-  pull_request:
-    branches: 
-    - master   
-    paths:
-    - java-node/**
 
 jobs:
 
