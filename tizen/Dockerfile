@@ -34,8 +34,6 @@ RUN wget -O /home/massive/tizen-cli.bin http://download.tizen.org/sdk/Installer/
 
 USER root
 
-WORKDIR /tmp
-
 COPY entrypoint.sh .
 
 RUN chmod +x entrypoint.sh
