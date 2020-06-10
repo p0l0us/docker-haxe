@@ -1,8 +1,5 @@
 #!/bin/bash
-set -ex
-
-echo "AUTH: ${TIZEN_AUTHOR_PASSWORD}"
-echo "DIST: ${TIZEN_DISTRIBUTOR_PASSWORD}"
+set -x
 
 if [ -n "${TIZEN_AUTHOR_PASSWORD}" ] && [ -n "${TIZEN_DISTRIBUTOR_PASSWORD}" ]
 then
