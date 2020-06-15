@@ -36,11 +36,16 @@
 FROM p0l0us/haxe:3.4-mdk-cli-yhaxen-0.0.50-ant-1.9.9-openjdk-12-node-carbon-alpine
 MAINTAINER polehla@gmail.com
 
-RUN apk update 
+RUN apk add --update --no-cache \
+    bash \
+    unzip \
+    libstdc++ \
+    python \
+    groff \
+    py-pip \
+    gradle
 
-RUN apk add --no-cache bash unzip libstdc++
-
-RUN apk add gradle
+RUN pip install awscli
 
 RUN mkdir -p /usr/local/android-sdk-linux && \
     wget https://dl.google.com/android/repository/sdk-tools-linux-4333796.zip -O tools.zip && \

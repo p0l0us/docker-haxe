@@ -40,4 +40,10 @@ then
 	ls /mnt/aws-iis
 fi
 
+# Get Android Certificate file from S3
+if [ -n "${BUCKET_PATH}" ] && [ -n "${RELEASE_ENV}" ]
+then
+	aws s3 cp ${BUCKET_PATH} /var/lib/android --recursive
+fi
+
 exec "$@"
