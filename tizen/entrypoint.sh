@@ -1,17 +1,17 @@
 #!/bin/bash
 set -e
 
-// The entrypoint copies the tizen profile certificates from S3 bucket 
-// and install to tizen profiles. It requires following environment
-// variables:
-//    AWS_ACCESS_KEY_ID - S3 key
-//    AWS_SECRET_ACCESS_KEY - S3 secret key
-//    BUCKET_PATH - path to folder where certs are stored (without "/" at the end)
-//    TIZEN_PROFILE_NAME - Tizen profile name
-//    TIZEN_AUTHOR_FILE - Tizen author certificate file path relative to BUCKET_PATH (without starting "/")
-//    TIZEN_AUTHOR_PASSWORD - Password for tizen author certificate
-//    TIZEN_DISTRIBUTOR_FILE - Tizen distributor certificate file path relative to BUCKET_PATH (without starting "/")
-//    TIZEN_DISTRIBUTOR_PASSWORD - Tizen distributor certificate password
+# The entrypoint copies the tizen profile certificates from S3 bucket 
+# and install to tizen profiles. It requires following environment
+# variables:
+#    AWS_ACCESS_KEY_ID - S3 key
+#    AWS_SECRET_ACCESS_KEY - S3 secret key
+#    BUCKET_PATH - path to folder where certs are stored (without "/" at the end)
+#    TIZEN_PROFILE_NAME - Tizen profile name
+#    TIZEN_AUTHOR_FILE - Tizen author certificate file path relative to BUCKET_PATH (without starting "/")
+#    TIZEN_AUTHOR_PASSWORD - Password for tizen author certificate
+#    TIZEN_DISTRIBUTOR_FILE - Tizen distributor certificate file path relative to BUCKET_PATH (without starting "/")
+#    TIZEN_DISTRIBUTOR_PASSWORD - Tizen distributor certificate password
 
 
 TIZEN_PROFILE_FILE="/home/massive/tizen-studio-data/profile/profiles.xml"
