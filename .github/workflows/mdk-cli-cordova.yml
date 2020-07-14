@@ -1,0 +1,25 @@
+name: Docker Image cordova
+
+on:
+  push:
+    branches: 
+    - master   
+    paths:
+    - mdk-cli-cordova/**
+
+
+jobs:
+
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Docker login
+      run: echo '${{ secrets.DOCKERHUB_PASS }}' | docker login --username ${{ secrets.DOCKERHUB_USER }} --password-stdin
+
+    - name: Build mdk-cli-cordova docker image
+      run: docker build mdk-cli-cordova -t p0l0us/haxe:3.4-cordova-mdk-cli-yhaxen-0.0.50-ant-1.9.9-openjdk-12-node-carbon-alpine
+    - name: Publish mdk-cli-cordova docker image
+      run: docker push p0l0us/haxe:3.4-cordova-mdk-cli-yhaxen-0.0.50-ant-1.9.9-openjdk-12-node-carbon-alpine

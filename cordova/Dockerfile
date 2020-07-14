@@ -1,52 +1,20 @@
-# p0l0us/haxe:3.4-cordova-mdk-cli-yhaxen-0.0.50-ant-1.9.9-openjdk-12-node-carbon-alpine
-#
-# Project specific image adding required tools and mounts AWS folder.
-# 
-# The image allows us to run cordova, mdk-cli, yhaxen dependencies based on node & haxe base image.
-#
-# Following optional environment vairables are accepted by the image entrypoint script:
-#
-# SSH setup:
-#
-#	SSH_KNOWN_HOSTS_GZIP_BASE64
-#	SSH_PRIVATE_KEY_GZIP_BASE64
-#
-# Variables will be decoded and extracted to ~/.ssh/private.key and ~/.ssh/known_hosts files.
-# You can achieve same efect by setting your private key and knownw hosts using sets of bash commands.
-#
-# This image was created for bamboo automation build. Due limited bamboo variable lenght private key
-# has to be compressed (gzip) and base64 encoded. You can encode values by following commands:
-# 
-# cat ~/.ssh/known_hosts | gzip | base64 -w0 
-# cat ~/.ssh/id_rsa | gzip | base64 -w0
-#
-# Note: -w0 argument doesn't exists within alpine base64 encoder. Use Ubuntu or Debian linux.
-#
-# Samba folder mount:
-#
-#	AWS_MOUNT_PATH - aws-iss samba share path
-#	AWS_MOUNT_USERNAME - aws-iss samba share username
-#	AWS_MOUNT_PASSWORD - aws-iss samba share password
-#
-# AWS samba shares will be mounted to `/mnt/aws-iis`
-#
-# Due mount.cifs command, docker container requires following arguments:
-# `--cap-add SYS_ADMIN --cap-add DAC_READ_SEARCH`
+FROM openjdk:8
 
-FROM p0l0us/haxe:3.4-mdk-cli-yhaxen-0.0.50-ant-1.9.9-openjdk-12-node-carbon-alpine
-MAINTAINER polehla@gmail.com
+MAINTAINER Martin Polehla <polehla@gmail.com>
 
-RUN apk add --update --no-cache \
-    bash \
-    unzip \
-    libstdc++ \
-    python \
-    groff \
-    py-pip \
-    gradle
+RUN apt-get clean && \
+    rm -rf /var/lib/apt/lists/* && \
+    apt-get update && \
+    apt-get install -yq libc6 libstdc++6 zlib1g libncurses5 build-essential libssl-dev ruby ruby-dev ant --no-install-recommends && \
+    apt-get clean
 
-RUN pip install awscli
+RUN apt-get -y install curl gnupg
+RUN curl -sL https://deb.nodesource.com/setup_11.x  | bash -
+RUN apt-get -y install nodejs awscli
 
+RUN gem install bundler
+
+# Download and untar Android SDK tools
 RUN mkdir -p /usr/local/android-sdk-linux && \
     wget https://dl.google.com/android/repository/sdk-tools-linux-4333796.zip -O tools.zip && \
     unzip tools.zip -d /usr/local/android-sdk-linux && \
@@ -71,9 +39,15 @@ RUN $ANDROID_HOME/tools/bin/sdkmanager "tools" "platform-tools" && \
 
 RUN npm install -g cordova@7.1.0
 
+ENV GRADLE_VERSION=6.3
+ENV PATH=$PATH:"/opt/gradle/gradle-6.3/bin/"
+RUN wget https://services.gradle.org/distributions/gradle-${GRADLE_VERSION}-bin.zip -P /tmp \
+    && unzip -d /opt/gradle /tmp/gradle-*.zip \
+    && chmod +775 /opt/gradle \
+    && gradle --version \
+    && rm -rf /tmp/gradle*
+
 COPY bin/* /usr/local/bin/
 RUN chmod +rx /usr/local/bin/docker-entrypoint.sh
 
 ENTRYPOINT ["docker-entrypoint.sh"]
-
-CMD ["haxelib", "run", "yhaxen"]

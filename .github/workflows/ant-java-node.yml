@@ -6,11 +6,6 @@ on:
     - master
     paths:
     - 'ant-java-node/**'
-  pull_request:
-    branches: 
-    - master
-    paths:
-    - 'ant-java-node/**'
 
 jobs:
 
