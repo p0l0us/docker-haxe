@@ -10,7 +10,7 @@ RUN apt-get clean && \
 
 RUN apt-get -y install curl gnupg
 RUN curl -sL https://deb.nodesource.com/setup_11.x  | bash -
-RUN apt-get -y install nodejs
+RUN apt-get -y install nodejs aws-cli
 
 RUN gem install bundler
 
@@ -46,3 +46,8 @@ RUN wget https://services.gradle.org/distributions/gradle-${GRADLE_VERSION}-bin.
     && chmod +775 /opt/gradle \
     && gradle --version \
     && rm -rf /tmp/gradle*
+
+COPY bin/* /usr/local/bin/
+RUN chmod +rx /usr/local/bin/docker-entrypoint.sh
+
+ENTRYPOINT ["docker-entrypoint.sh"]
