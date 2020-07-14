@@ -10,7 +10,7 @@ RUN apt-get clean && \
 
 RUN apt-get -y install curl gnupg
 RUN curl -sL https://deb.nodesource.com/setup_11.x  | bash -
-RUN apt-get -y install nodejs aws-cli
+RUN apt-get -y install nodejs awscli
 
 RUN gem install bundler
 

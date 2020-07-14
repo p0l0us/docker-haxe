@@ -6,11 +6,7 @@ on:
     - master   
     paths:
     - mdk-cli-cordova/**
-  pull_request:
-    branches: 
-    - master   
-    paths:
-    - mdk-cli-cordova/**
+
 
 jobs:
 
