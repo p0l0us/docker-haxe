@@ -66,6 +66,10 @@ RUN $ANDROID_HOME/tools/bin/sdkmanager "tools" "platform-tools" && \
 
 RUN npm install -g cordova@7.1.0
 
+RUN chmod +rx /usr/local/bin/docker-entrypoint.sh &&\
+	chmod +rx /usr/local/bin/set-haxe &&\
+	chmod +rx /usr/local/bin/set-nodejs
+	
 ENTRYPOINT ["docker-entrypoint.sh"]
 
 CMD ["haxelib", "run", "yhaxen"]
